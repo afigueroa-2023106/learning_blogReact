@@ -2,7 +2,7 @@ import API from './api'
 
 export const getCommentsByPost = async (postId) => {
   try {
-    const response = await API.get(`/comments/${postId}`)
+    const response = await API.get(`/comment/post/${postId}`)
     return response.data;
   } catch (error) {
     console.error('Error fetching comments:', error)
@@ -10,12 +10,15 @@ export const getCommentsByPost = async (postId) => {
   }
 }
 
-export const createComment = async (postId, commentData) => {
+export const createComment = async (commentData) => {
   try {
-    const response = await API.post(`/comments/${postId}`, commentData)
-    return response.data;
+    const response = await API.post('/comment', commentData)
+    return response.data
   } catch (error) {
     console.error('Error creating comment:', error)
     throw error
   }
 }
+
+export const getPostComments = getCommentsByPost
+export const addComment = createComment

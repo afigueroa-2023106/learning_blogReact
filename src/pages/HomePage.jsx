@@ -1,43 +1,65 @@
-import { useState, useEffect } from 'react'
-import { getPosts } from '../services/postService.js'
-import PostList from '../components/post/postList.jsx'
-import CourseFilter from '../components/courseFilter.jsx'
+import React, { useEffect, useState } from 'react';
+import { getPosts } from '../services/postService.js';
+import { getCourses } from '../services/courseService.js';
+import PostList from '../components/post/postList.jsx';
+import CourseFilter from '../components/courseFilter.jsx';
 
 const HomePage = () => {
-  const [posts, setPosts] = useState([])
-  const [courses, setCourses] = useState([])
-  const [selectedCourse, setSelectedCourse] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [posts, setPosts] = useState([]);
+  const [courses, setCourses] = useState([]);
+  const [selectedCourse, setSelectedCourse] = useState(
+    localStorage.getItem('selectedCourse') || ''
+  );
 
   useEffect(() => {
-    const fetchPostsAndCourses = async () => {
-      try {
-        const data = await getPosts(selectedCourse)
-        setPosts(data.posts);
-        setCourses(data.availableCourses)
-        setLoading(false);
-      } catch (error) {
-        console.error('Error:', error)
-        setLoading(false)
-      }
+  const fetchData = async () => {
+    console.log('Iniciando carga de datos...');
+    try {
+      const [postsData, coursesData] = await Promise.all([
+        getPosts(),
+        getCourses(),
+      ]);
+
+      console.log('postsData:', postsData);
+      console.log('postsData.posts:', postsData.posts);
+
+      setPosts(postsData.posts || postsData || []);
+      setCourses(coursesData.courses || coursesData || []);
+    } catch (error) {
+      console.error('Error al cargar datos:', error);
     }
+  };
 
-    fetchPostsAndCourses()
-  }, [selectedCourse])
+  fetchData();
+}, []);
 
-  if (loading) return <div>Cargando...</div>
+  console.log('selectedCourse:', selectedCourse);
+  posts.forEach(p => {
+    console.log(`Post ${p._id} tiene course:`, p.course, 'tipo:', typeof p.course);
+  });
+
+  const filteredPosts = posts.filter(post => {
+    const courseIdFromPost = typeof post.course === 'string'
+      ? post.course
+      : post.course?._id;
+    return selectedCourse ? courseIdFromPost === selectedCourse : true;
+  });
 
   return (
-    <div className="home-page">
-      <h1>Blog de Aprendizaje</h1>
-      <CourseFilter 
-        courses={courses} 
-        selectedCourse={selectedCourse} 
-        onCourseChange={setSelectedCourse} 
+    <div>
+      <h1>Learning Blog</h1>
+      <CourseFilter
+        courses={courses}
+        selectedCourse={selectedCourse}
+        onCourseChange={(courseId) => {
+          console.log('Curso seleccionado:', courseId);
+          setSelectedCourse(courseId);
+          localStorage.setItem('selectedCourse', courseId || '');
+        }}
       />
-      <PostList posts={posts} />
+      <PostList posts={filteredPosts} />
     </div>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;

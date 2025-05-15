@@ -47,7 +47,6 @@ main {
   margin-left: 1rem;
 }
 
-/* Post Card */
 .post-card {
   background: #f9f9f9;
   border: 1px solid #ddd;
@@ -136,7 +135,6 @@ main {
   font-size: 0.9rem;
 }
 
-/* Course Filter */
 .course-filter {
   margin-bottom: 2rem;
 }

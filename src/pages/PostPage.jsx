@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { getPostById } from '../services/postService'
-import { getCommentsByPost, createComment } from '../services/commentService'
+import { getPostById } from '../services/postService.js'
+import { getCommentsByPost, createComment } from '../services/commentService.jsx'
 import PostDetail from '../components/post/postDetail.jsx'
 import CommentList from '../components/comment/commentList.jsx'
 import CommentForm from '../components/comment/commentForm.jsx'
@@ -13,40 +13,40 @@ const PostPage = () => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const fetchPostAndComments = async () => {
+    const fetchData = async () => {
       try {
         const [postData, commentsData] = await Promise.all([
           getPostById(id),
-          getCommentsByPost(id),
+          getCommentsByPost(id)
         ])
         setPost(postData)
         setComments(commentsData)
-        setLoading(false)
       } catch (error) {
         console.error('Error:', error)
+      } finally {
         setLoading(false)
       }
     }
 
-    fetchPostAndComments()
+    fetchData()
   }, [id])
 
-  const handleCommentSubmit = async (postId, commentData) => {
+  const handleCommentSubmit = async (commentData) => {
     try {
-      const newComment = await createComment(postId, commentData)
-      setComments([newComment, ...comments]);
+      const newComment = await createComment({ ...commentData, postId: id })
+      setComments([newComment, ...comments])
     } catch (error) {
-      console.error('Error al enviar comentario:', error)
+      console.error('Error submitting comment:', error)
     }
   }
 
-  if (loading) return <div>Cargando...</div>
-  if (!post) return <div>Publicación no encontrada</div>
+  if (loading) return <div>Loading...</div>
+  if (!post) return <div>Post not found</div>
 
   return (
     <div className="post-page">
       <PostDetail post={post} />
-      <CommentForm postId={post._id} onCommentSubmit={handleCommentSubmit} />
+      <CommentForm onSubmit={handleCommentSubmit} />
       <CommentList comments={comments} />
     </div>
   )

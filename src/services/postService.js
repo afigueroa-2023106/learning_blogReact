@@ -1,22 +1,34 @@
-import API from './api'
+import API from './api';
 
-export const getPosts = async (course = null) => {
+export const getPosts = async () => {
   try {
-    const url = course ? `/posts?course=${course}` : '/posts'
-    const response = await API.get(url);
+    const response = await API.get('/post');
     return response.data;
   } catch (error) {
-    console.error('Error fetching posts:', error)
+    console.error('Error al obtener posts:', {
+      url: error.config?.url,
+      status: error.response?.status
+    });
     throw error;
   }
-}
+};
+
+export const createPost = async (postData) => {
+  try {
+    const response = await API.post('/post', postData);
+    return response.data;
+  } catch (error) {
+    console.error('Error al crear post:', error);
+    throw error;
+  }
+};
 
 export const getPostById = async (id) => {
   try {
-    const response = await API.get(`/posts/${id}`)
+    const response = await API.get(`/post/${id}`); // ❗️Corregido aquí
     return response.data;
   } catch (error) {
-    console.error('Error fetching post:', error)
+    console.error('Error fetching post:', error);
     throw error;
   }
-}
+};

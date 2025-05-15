@@ -1,4 +1,5 @@
 import CommentItem from './commentItem.jsx'
+import { getCommentsByPost as getPostComments } from '../../services/commentService';
 
 const CommentList = ({ comments }) => {
   return (
