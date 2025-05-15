@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { getPosts } from '../services/postService.js';
 import { getCourses } from '../services/courseService.js';
 import PostList from '../components/post/postList.jsx';
-import CourseFilter from '../components/courseFilter.jsx';
+import CourseFilter from '../components/courseFilter.jsx'
+import './homePage.css'
 
 const HomePage = () => {
   const [posts, setPosts] = useState([]);
@@ -12,26 +13,26 @@ const HomePage = () => {
   );
 
   useEffect(() => {
-  const fetchData = async () => {
-    console.log('Iniciando carga de datos...');
-    try {
-      const [postsData, coursesData] = await Promise.all([
-        getPosts(),
-        getCourses(),
-      ]);
+    const fetchData = async () => {
+      console.log('Iniciando carga de datos...');
+      try {
+        const [postsData, coursesData] = await Promise.all([
+          getPosts(),
+          getCourses(),
+        ]);
 
-      console.log('postsData:', postsData);
-      console.log('postsData.posts:', postsData.posts);
+        console.log('postsData:', postsData);
+        console.log('coursesData:', coursesData);
 
-      setPosts(postsData.posts || postsData || []);
-      setCourses(coursesData.courses || coursesData || []);
-    } catch (error) {
-      console.error('Error al cargar datos:', error);
-    }
-  };
+        setPosts(Array.isArray(postsData) ? postsData : []);
+        setCourses(Array.isArray(coursesData) ? coursesData : []);
+      } catch (error) {
+        console.error('Error al cargar datos:', error);
+      }
+    };
 
-  fetchData();
-}, []);
+    fetchData();
+  }, []);
 
   console.log('selectedCourse:', selectedCourse);
   posts.forEach(p => {

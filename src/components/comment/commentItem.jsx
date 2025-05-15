@@ -4,8 +4,8 @@ const CommentItem = ({ comment }) => {
   return (
     <div className="comment-item">
       <div className="comment-header">
-        <strong>{comment.author}</strong>
-        <span>{formatDate(comment.createdAt)}</span>
+        <strong>{comment.name || 'Anónimo'}</strong>
+        <span>{comment.date ? formatDate(comment.date) : 'Fecha no disponible'}</span>
       </div>
       <div className="comment-content">{comment.content}</div>
     </div>
@@ -13,3 +13,4 @@ const CommentItem = ({ comment }) => {
 }
 
 export default CommentItem
+

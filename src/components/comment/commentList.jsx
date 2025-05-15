@@ -1,5 +1,4 @@
 import CommentItem from './commentItem.jsx'
-import { getCommentsByPost as getPostComments } from '../../services/commentService';
 
 const CommentList = ({ comments }) => {
   return (
@@ -7,7 +6,8 @@ const CommentList = ({ comments }) => {
       <h3>Comentarios ({comments.length})</h3>
       {comments.length > 0 ? (
         comments.map((comment) => (
-          <CommentItem key={comment._id} comment={comment} />
+          <CommentItem key={comment._id || comment.id || Math.random()} comment={comment} />
+          // Si no hay _id, usa id, y si tampoco, genera uno aleatorio (aunque no recomendado)
         ))
       ) : (
         <p>No hay comentarios aún. Sé el primero en comentar.</p>

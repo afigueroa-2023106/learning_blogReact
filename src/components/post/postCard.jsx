@@ -11,10 +11,12 @@ const PostCard = ({ post }) => {
     <div className="post-card">
       <h3>{post.title || 'Sin título'}</h3>
       <p className="post-content">{post.content || 'Sin contenido'}</p>
-      {post.course && (
+      {post.course ? (
         <p className="course-info">
-          Curso: {post.course.name || 'Curso no especificado'}
+          Curso: {post.course.title || 'Curso no especificado'}
         </p>
+      ) : (
+        <p className="course-info">Curso no disponible</p>
       )}
       <Link to={`/post/${post._id || post.id}`} className="view-link">
         Ver detalles

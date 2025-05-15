@@ -1,0 +1,132 @@
+/* Reset y base */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9fbfd;
+  color: #222;
+  line-height: 1.5;
+}
+
+/* Contenedor general de HomePage */
+.home-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px 40px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.07);
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Título principal */
+.home-container > h1 {
+  font-weight: 700;
+  font-size: 2.5rem;
+  margin-bottom: 24px;
+  color: #2c3e50;
+  text-align: center;
+  letter-spacing: 1.5px;
+  user-select: none;
+}
+
+/* CourseFilter */
+.course-filter {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.course-filter select {
+  width: 220px;
+  padding: 10px 16px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1.5px solid #ccc;
+  background-color: #fafafa;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.course-filter select:hover,
+.course-filter select:focus {
+  border-color: #2c7be5;
+  outline: none;
+}
+
+/* PostList */
+.post-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(280px,1fr));
+  gap: 24px;
+}
+
+/* Estilos para cada PostCard dentro del PostList (sólo ejemplo para dar estructura) */
+.post-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 18px 22px;
+  box-shadow: 0 8px 15px rgba(44, 123, 229, 0.12);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: box-shadow 0.3s ease;
+}
+
+.post-card:hover {
+  box-shadow: 0 12px 20px rgba(44, 123, 229, 0.3);
+}
+
+.post-card h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #2c3e50;
+}
+
+.post-card p {
+  font-size: 0.95rem;
+  margin-bottom: 12px;
+  color: #555;
+}
+
+.post-card .course-info {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #6c757d;
+  margin-bottom: 14px;
+}
+
+.view-link {
+  align-self: flex-start;
+  color: #2c7be5;
+  font-weight: 600;
+  border-bottom: 1.5px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+.view-link:hover {
+  border-color: #1a5fcc;
+}
+
+/* Responsividad */
+@media (max-width: 600px) {
+  .home-container {
+    margin: 20px 12px;
+    padding: 0 12px 30px;
+  }
+
+  .course-filter select {
+    width: 100%;
+  }
+
+  .post-list {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}

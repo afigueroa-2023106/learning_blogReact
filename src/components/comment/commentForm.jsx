@@ -1,53 +1,50 @@
 import { useState } from 'react'
 
-const CommentForm = ({ postId, onCommentSubmit }) => {
-  const [formData, setFormData] = useState({
-    author: '',
-    content: '',
-  })
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
-  }
+const CommentForm = ({ postId, onSubmit }) => {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [content, setContent] = useState('')
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!formData.author.trim() || !formData.content.trim()) {
-      alert('Por favor completa todos los campos')
-      return;
+    e.preventDefault()
+    if (!name.trim() || !content.trim()) {
+      alert('Por favor ingresa nombre y comentario')
+      return
     }
-    onCommentSubmit(postId, formData);
-    setFormData({
-      author: '',
-      content: '',
-    })
+    const newComment = {
+      postId,      
+      name,
+      email: email.trim() || null, 
+      content,
+      createdAt: new Date().toISOString(),
+    }
+    onSubmit(newComment)
+    setName('')
+    setEmail('')
+    setContent('')
   }
 
   return (
-    <form onSubmit={handleSubmit} className="comment-form">
-      <h3>Deja un comentario</h3>
-      <div className="form-group">
-        <input
-          type="text"
-          name="author"
-          placeholder="Tu nombre"
-          value={formData.author}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div className="form-group">
-        <textarea
-          name="content"
-          placeholder="Tu comentario"
-          value={formData.content}
-          onChange={handleChange}
-          required
-        />
-      </div>
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        placeholder="Tu nombre"
+        value={name}
+        onChange={e => setName(e.target.value)}
+        required
+      />
+      <input
+        type="email"
+        placeholder="Tu email (opcional)"
+        value={email}
+        onChange={e => setEmail(e.target.value)}
+      />
+      <textarea
+        placeholder="Tu comentario"
+        value={content}
+        onChange={e => setContent(e.target.value)}
+        required
+      />
       <button type="submit">Enviar comentario</button>
     </form>
   )
