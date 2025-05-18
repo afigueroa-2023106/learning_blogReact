@@ -22,8 +22,13 @@ const PostPage = () => {
           getCommentsByPost(id)
         ])
 
-        setPost(postData.post);
-        setComments(commentsData.comments || [])
+        setPost(postData.post)
+        const orderedComments = (commentsData.comments || []).sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        )
+        setComments(orderedComments)
+
+        console.log('Comentarios ordenados:', orderedComments.map(c => c.createdAt))
       } catch (error) {
         console.error('Error al obtener datos:', error)
       } finally {
@@ -37,15 +42,16 @@ const PostPage = () => {
   const handleCommentSubmit = async (commentData) => {
     try {
       await createComment({ ...commentData, postId: id })
+
       const commentsData = await getCommentsByPost(id)
-      setComments(commentsData.comments || [])
+
+      const orderedComments = (commentsData.comments || []).sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      )
+      setComments(orderedComments)
     } catch (error) {
       console.error('Error al enviar el comentario:', error)
     }
-  }
-
-  const handleGoBack = () => {
-    navigate('/')
   }
 
   if (loading) return <div>Loading...</div>
@@ -53,8 +59,8 @@ const PostPage = () => {
 
   return (
     <div className="post-page">
-      <button onClick={handleGoBack} className="go-back-button">
-        ← Volver a cursos
+      <button className="back-button" onClick={() => navigate('/')}>
+        ← Volver a los cursos
       </button>
 
       <PostDetail post={post} />
