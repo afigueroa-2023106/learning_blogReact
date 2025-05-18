@@ -1,4 +1,5 @@
 import CommentItem from './commentItem.jsx'
+import "./comment.css"
 
 const CommentList = ({ comments }) => {
   return (

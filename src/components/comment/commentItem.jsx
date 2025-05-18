@@ -1,4 +1,6 @@
 import formatDate from '../../utils/formatDate'
+import "./comment.css"
+
 
 const CommentItem = ({ comment }) => {
   return (
