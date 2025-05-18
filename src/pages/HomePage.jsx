@@ -47,20 +47,20 @@ const HomePage = () => {
   })
 
   return (
-    <div>
-      <h1>Learning Blog</h1>
-      <CourseFilter
-        courses={courses}
-        selectedCourse={selectedCourse}
-        onCourseChange={(courseId) => {
-          console.log('Curso seleccionado:', courseId)
-          setSelectedCourse(courseId);
-          localStorage.setItem('selectedCourse', courseId || '')
-        }}
-      />
-      <PostList posts={filteredPosts} />
-    </div>
-  )
+  <div className="homepage-container">
+    <h1>Learning Blog</h1>
+    <CourseFilter
+      courses={courses}
+      selectedCourse={selectedCourse}
+      onCourseChange={(courseId) => {
+        setSelectedCourse(courseId)
+        localStorage.setItem('selectedCourse', courseId || '')
+      }}
+    />
+    <PostList posts={filteredPosts} />
+  </div>
+)
+
 }
 
 export default HomePage

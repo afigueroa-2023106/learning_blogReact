@@ -1,0 +1,26 @@
+.course-filter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1.5rem auto;
+  padding: 0 1rem;
+  max-width: 600px;
+  width: 100%;
+}
+
+.course-filter select {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.7rem 1rem;
+  font-size: 1rem;
+  border: 1.8px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  transition: border-color 0.3s ease;
+}
+
+.course-filter select:focus {
+  border-color: #4a90e2;
+  outline: none;
+}

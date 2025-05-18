@@ -1,3 +1,5 @@
+import './courseFilter.css'
+
 const CourseFilter = ({ courses, selectedCourse, onCourseChange }) => {
   return (
     <div className="course-filter">

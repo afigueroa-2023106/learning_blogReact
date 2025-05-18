@@ -1,5 +1,6 @@
 import React from 'react'
 import PostCard from './postCard.jsx'
+import './post.css'
 
 const PostList = ({ posts }) => {
   console.log('Posts recibidos en Pos tList:', posts)

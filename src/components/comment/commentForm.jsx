@@ -2,7 +2,6 @@ import { useState } from 'react'
 
 const CommentForm = ({ postId, onSubmit }) => {
   const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
   const [content, setContent] = useState('')
 
   const handleSubmit = (e) => {
@@ -12,15 +11,13 @@ const CommentForm = ({ postId, onSubmit }) => {
       return
     }
     const newComment = {
-      postId,      
+      postId,
       name,
-      email: email.trim() || null, 
       content,
       createdAt: new Date().toISOString(),
     }
     onSubmit(newComment)
     setName('')
-    setEmail('')
     setContent('')
   }
 
@@ -32,12 +29,6 @@ const CommentForm = ({ postId, onSubmit }) => {
         value={name}
         onChange={e => setName(e.target.value)}
         required
-      />
-      <input
-        type="email"
-        placeholder="Tu email (opcional)"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
       />
       <textarea
         placeholder="Tu comentario"

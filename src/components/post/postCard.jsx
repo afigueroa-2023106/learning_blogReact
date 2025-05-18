@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import './post.css'
 
 const PostCard = ({ post }) => {
   console.log('Datos del post:', post)

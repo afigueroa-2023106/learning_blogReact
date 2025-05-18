@@ -16,19 +16,13 @@ const PostPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log('ID del post desde URL:', id)
-
         const [postData, commentsData] = await Promise.all([
           getPostById(id),
           getCommentsByPost(id)
         ])
 
-        console.log('Post recibido desde el backend:', postData)
-        console.log('Comentarios recibidos:', commentsData)
-
-        // EXTRAER solo el objeto post y arreglo comments
-        setPost(postData.post)  
-        setComments(Array.isArray(commentsData.comments) ? commentsData.comments : [])
+        setPost(postData.post);
+        setComments(commentsData.comments || [])
       } catch (error) {
         console.error('Error al obtener datos:', error)
       } finally {
@@ -39,15 +33,17 @@ const PostPage = () => {
     fetchData()
   }, [id])
 
+
   const handleCommentSubmit = async (commentData) => {
-    try {
-      const newComment = await createComment({ ...commentData, postId: id })
-      console.log('Nuevo comentario enviado:', newComment)
-      setComments([newComment, ...comments])
-    } catch (error) {
-      console.error('Error al enviar el comentario:', error)
-    }
+  try {
+    await createComment({ ...commentData, postId: id })
+
+    const commentsData = await getCommentsByPost(id)
+    setComments(commentsData.comments || [])
+  } catch (error) {
+    console.error('Error al enviar el comentario:', error)
   }
+}
 
   useEffect(() => {
     if (post) {
