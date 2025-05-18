@@ -24,7 +24,6 @@ input, textarea, button {
   font-family: inherit;
 }
 
-/* Contenedor principal */
 .container {
   max-width: 960px;
   margin: 40px auto;
@@ -37,7 +36,6 @@ input, textarea, button {
   flex-direction: column;
 }
 
-/* Estilos para botones */
 button {
   background-color: #2c7be5;
   color: white;
@@ -53,7 +51,6 @@ button:hover {
   background-color: #1a5fcc;
 }
 
-/* Inputs y Textareas */
 input[type="text"],
 input[type="email"],
 textarea {
@@ -73,18 +70,15 @@ textarea:focus {
   outline: none;
 }
 
-/* Scroll suave para toda la app */
 html {
   scroll-behavior: smooth;
 }
 
-/* Texto general */
 h1, h2, h3, h4, h5, h6 {
   color: #222;
   margin-top: 0;
 }
 
-/* Responsividad simple */
 @media (max-width: 600px) {
   .container {
     margin: 20px 12px;

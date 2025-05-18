@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 const ErrorMessage = ({ message }) => {
   return (
@@ -7,7 +7,7 @@ const ErrorMessage = ({ message }) => {
       <p>{message}</p>
       <button onClick={() => window.location.reload()}>Reintentar</button>
     </div>
-  );
-};
+  )
+}
 
-export default ErrorMessage;
+export default ErrorMessage

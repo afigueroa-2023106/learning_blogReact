@@ -8,12 +8,12 @@ const CourseFilter = ({ courses, selectedCourse, onCourseChange }) => {
         <option value="">Todos los cursos</option>
         {courses.map((course) => (
           <option key={course._id} value={course._id}>
-            {course.title} {/* Aquí usas title, no name */}
+            {course.title}
           </option>
         ))}
       </select>
     </div>
-  );
-};
+  )
+}
 
-export default CourseFilter;
+export default CourseFilter

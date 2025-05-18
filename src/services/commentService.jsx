@@ -2,7 +2,6 @@ import API from './api'
 
 export const getCommentsByPost = async (postId) => {
   try {
-    // Prueba con query param (común para filtrar)
     const response = await API.get(`/comment`, { params: { postId } })
     return response.data;
   } catch (error) {

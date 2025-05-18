@@ -1,12 +1,12 @@
-import React from 'react';
+import React from 'react'
 
 const PostDetail = ({ post }) => {
-  console.log('Post recibido en PostDetail:', post);
+  console.log('Post recibido en PostDetail:', post)
 
   if (!post) return null;
 
-  const formattedDate = post.date ? new Date(post.date).toLocaleDateString() : 'Fecha no disponible';
-  const courseTitle = post.course?.title || 'Curso no disponible';
+  const formattedDate = post.date ? new Date(post.date).toLocaleDateString() : 'Fecha no disponible'
+  const courseTitle = post.course?.title || 'Curso no disponible'
 
   return (
     <div className="post-detail">
@@ -15,7 +15,7 @@ const PostDetail = ({ post }) => {
       <p><strong>Curso:</strong> {courseTitle}</p>
       <p><strong>Fecha:</strong> {formattedDate}</p>
     </div>
-  );
-};
+  )
+}
 
-export default PostDetail;
+export default PostDetail

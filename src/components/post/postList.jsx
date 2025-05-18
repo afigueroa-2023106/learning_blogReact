@@ -1,12 +1,11 @@
-import React from 'react';
-import PostCard from './postCard.jsx';
+import React from 'react'
+import PostCard from './postCard.jsx'
 
 const PostList = ({ posts }) => {
-  // Debug: Verificar posts recibidos
-  console.log('Posts recibidos en Pos tList:', posts);
+  console.log('Posts recibidos en Pos tList:', posts)
 
   if (!posts || posts.length === 0) {
-    return <p>No hay publicaciones disponibles</p>;
+    return <p>No hay publicaciones disponibles</p>
   }
 
   return (
@@ -18,7 +17,7 @@ const PostList = ({ posts }) => {
         />
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default PostList;
+export default PostList

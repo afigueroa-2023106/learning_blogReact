@@ -111,7 +111,6 @@ form button:hover {
   margin-top: 0.3rem;
 }
 
-/* Responsive */
 @media (max-width: 480px) {
   .post-page {
     margin: 1rem;
