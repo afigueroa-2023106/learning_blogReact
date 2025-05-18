@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { getPostById } from '../services/postService.js'
 import { getCommentsByPost, createComment } from '../services/commentService.jsx'
 import PostDetail from '../components/post/postDetail.jsx'
@@ -9,6 +9,7 @@ import '../pages/postPage.css'
 
 const PostPage = () => {
   const { id } = useParams()
+  const navigate = useNavigate()
   const [post, setPost] = useState(null)
   const [comments, setComments] = useState([])
   const [loading, setLoading] = useState(true)
@@ -21,7 +22,7 @@ const PostPage = () => {
           getCommentsByPost(id)
         ])
 
-        setPost(postData.post)
+        setPost(postData.post);
         setComments(commentsData.comments || [])
       } catch (error) {
         console.error('Error al obtener datos:', error)
@@ -33,30 +34,29 @@ const PostPage = () => {
     fetchData()
   }, [id])
 
-
-const handleCommentSubmit = async (commentData) => {
-  try {
-    await createComment({ ...commentData, postId: id })
-
-    const commentsData = await getCommentsByPost(id)
-    setComments(commentsData.comments || [])
-  } catch (error) {
-    console.error('Error al enviar el comentario:', error)
-    throw error
-  }
-}
-
-  useEffect(() => {
-    if (post) {
-      console.log('Datos del post (confirmado):', post)
+  const handleCommentSubmit = async (commentData) => {
+    try {
+      await createComment({ ...commentData, postId: id })
+      const commentsData = await getCommentsByPost(id)
+      setComments(commentsData.comments || [])
+    } catch (error) {
+      console.error('Error al enviar el comentario:', error)
     }
-  }, [post])
+  }
+
+  const handleGoBack = () => {
+    navigate('/')
+  }
 
   if (loading) return <div>Loading...</div>
   if (!post) return <div>Post not found</div>
 
   return (
     <div className="post-page">
+      <button onClick={handleGoBack} className="go-back-button">
+        ← Volver a cursos
+      </button>
+
       <PostDetail post={post} />
       <CommentForm onSubmit={handleCommentSubmit} />
       <CommentList comments={comments} />
