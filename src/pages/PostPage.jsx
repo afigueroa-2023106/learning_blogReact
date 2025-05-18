@@ -21,7 +21,7 @@ const PostPage = () => {
           getCommentsByPost(id)
         ])
 
-        setPost(postData.post);
+        setPost(postData.post)
         setComments(commentsData.comments || [])
       } catch (error) {
         console.error('Error al obtener datos:', error)
@@ -34,7 +34,7 @@ const PostPage = () => {
   }, [id])
 
 
-  const handleCommentSubmit = async (commentData) => {
+const handleCommentSubmit = async (commentData) => {
   try {
     await createComment({ ...commentData, postId: id })
 
@@ -42,6 +42,7 @@ const PostPage = () => {
     setComments(commentsData.comments || [])
   } catch (error) {
     console.error('Error al enviar el comentario:', error)
+    throw error
   }
 }
 
